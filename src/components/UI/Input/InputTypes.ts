@@ -4,4 +4,5 @@ export interface IInput {
   value: string;
   onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyUp: (value: React.KeyboardEvent) => void;
+  autoFocus: boolean;
 }

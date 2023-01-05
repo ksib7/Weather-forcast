@@ -86,6 +86,7 @@ export const Main: FC = () => {
             type="text"
             placeholder="Search . . ."
             onKeyUp={getData}
+            autoFocus
           />
         </header>
         {typeof weather.main != "undefined" ? (
