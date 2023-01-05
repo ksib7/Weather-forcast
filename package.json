@@ -2,6 +2,7 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ksib7.github.io/Weather-forecast",
   "dependencies": {
     "@craco/craco": "^7.0.0",
     "@testing-library/react": "^13.4.0",
@@ -16,7 +17,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build"
+    "predeploy": "craco build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -36,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "sass": "^1.57.1"
   }
 }
