@@ -118,7 +118,21 @@ export const Main: FC = () => {
             </div>
           </div>
         ) : (
-          <Preloader />
+          <div>
+            <p
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0)",
+                boxShadow: "0px 0px rgb(0 0 0 / 0)",
+                display: "block",
+                marginTop: "50px",
+                marginBottom: "10px",
+              }}
+              className="weather__additional"
+            >
+              Enter your location &#11014;
+            </p>
+            <Preloader />
+          </div>
         )}
       </main>
     </div>
