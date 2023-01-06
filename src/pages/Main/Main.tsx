@@ -39,7 +39,7 @@ export const Main: FC = () => {
     return `${day}, ${date} ${month} ${year}`;
   };
 
-  const [weather, setWeather] = useState<any>(() => {
+  const [weather, setWeather] = useState(() => {
     const savedItem = localStorage.getItem("weather");
     return savedItem ? JSON.parse(savedItem) : {};
   });
