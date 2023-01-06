@@ -3,6 +3,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Input } from "@/components/UI/Input/Input";
 
 import "./Main.scss";
+import { Preloader } from "@/components/UI/Preloader/Preloader";
 
 export const Main: FC = () => {
   const builderDate = (e: Date) => {
@@ -40,6 +41,8 @@ export const Main: FC = () => {
 
   const [weather, setWeather] = useState<any>({});
   const [search, setSearch] = useState("");
+  const [preloader, setPreloader] = useState(true);
+  const [error, setError] = useState("");
 
   const api = {
     key: "66d23088a184fab8e69da2e5a056a12a",
@@ -47,15 +50,21 @@ export const Main: FC = () => {
 
   const getData = (q: any) => {
     if (q.key === "Enter") {
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units="metric"&appid=${api.key}`
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          setWeather(result);
-          console.log(result);
-          setSearch("");
-        });
+      try {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${search}&units="metric"&appid=${api.key}`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            setWeather(result);
+            console.log(result);
+            setSearch("");
+          });
+      } catch (err: any) {
+        setError(err.name);
+      } finally {
+        setPreloader(false);
+      }
     }
   };
 
@@ -80,6 +89,7 @@ export const Main: FC = () => {
             autoFocus
           />
         </header>
+
         {typeof weather.main != "undefined" ? (
           <div>
             <div className="location">
@@ -108,7 +118,7 @@ export const Main: FC = () => {
             </div>
           </div>
         ) : (
-          ""
+          <Preloader />
         )}
       </main>
     </div>

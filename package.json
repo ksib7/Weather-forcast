@@ -5,6 +5,9 @@
   "homepage": "https://ksib7.github.io/Weather-forecast",
   "dependencies": {
     "@craco/craco": "^7.0.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.3",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/node": "^16.18.11",
