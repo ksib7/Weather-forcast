@@ -38,8 +38,6 @@ export const Main: FC = () => {
     return `${day}, ${date} ${month} ${year}`;
   };
 
-  const [longitude, setLongitude] = useState();
-  const [latitude, setLatitude] = useState();
   const [weather, setWeather] = useState<any>({});
   const [search, setSearch] = useState("");
 
@@ -47,17 +45,10 @@ export const Main: FC = () => {
     key: "66d23088a184fab8e69da2e5a056a12a",
   };
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position: any) => {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-    });
-  }, [longitude, latitude]);
-
   const getData = (q: any) => {
     if (q.key === "Enter") {
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units="metric"&lat=${latitude}&lon=${longitude}&appid=${api.key}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units="metric"&appid=${api.key}`
       )
         .then((res) => res.json())
         .then((result) => {
@@ -103,6 +94,17 @@ export const Main: FC = () => {
                 {Math.round(weather.main.temp) - 274}&deg;C
               </div>
               <p className="weather__description">{weather.weather[0].main}</p>
+            </div>
+            <div className="weather__more">
+              <div className="weather__additional">
+                Wind: {Math.round(weather.wind.speed)} m/s
+              </div>
+              <div className="weather__additional">
+                Pressure: {Math.round(weather.main.pressure / 1.333)} mmHg
+              </div>
+              <div className="weather__additional">
+                Feels like: {Math.round(weather.main.feels_like - 274)}&deg;C
+              </div>
             </div>
           </div>
         ) : (
