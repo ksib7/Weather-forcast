@@ -1,9 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
 
 import { Input } from "@/components/UI/Input/Input";
+import { Preloader } from "@/components/UI/Preloader/Preloader";
 
 import "./Main.scss";
-import { Preloader } from "@/components/UI/Preloader/Preloader";
 
 export const Main: FC = () => {
   const builderDate = (e: Date) => {
@@ -39,10 +39,12 @@ export const Main: FC = () => {
     return `${day}, ${date} ${month} ${year}`;
   };
 
-  const [weather, setWeather] = useState<any>({});
+  const [weather, setWeather] = useState<any>(() => {
+    const savedItem = localStorage.getItem("weather");
+    return savedItem ? JSON.parse(savedItem) : {};
+  });
+
   const [search, setSearch] = useState("");
-  const [preloader, setPreloader] = useState(true);
-  const [error, setError] = useState("");
 
   const api = {
     key: "66d23088a184fab8e69da2e5a056a12a",
@@ -61,12 +63,14 @@ export const Main: FC = () => {
             setSearch("");
           });
       } catch (err: any) {
-        setError(err.name);
-      } finally {
-        setPreloader(false);
+        console.log(err.name);
       }
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("weather", JSON.stringify(weather));
+  }, [weather]);
 
   return (
     <div
